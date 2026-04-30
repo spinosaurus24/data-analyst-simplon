@@ -8,3 +8,27 @@ figure = px.pie(données, values='qte', names='region', title='quantité vendue 
 figure.write_html('ventes-par-region.html')
 
 print('ventes-par-région.html généré avec succès !')
+
+
+ventes_produit = df.groupby("produit")["quantite"].sum().reset_index()
+
+fig = px.bar(
+    ventes_produit,
+    x="produit",
+    y="quantite",
+    title="Ventes par produit"
+)
+
+fig.write_html("ventes-par-produit.html")
+
+
+df["chiffre_affaires"] = df["quantite"] * df["prix"]
+
+fig = px.bar(
+    ca_produit,
+    x="produit",
+    y="chiffre_affaires",
+    title="Chiffre d'affaires par produit"
+)
+
+fig.write_html("ca-par-produit.html")
